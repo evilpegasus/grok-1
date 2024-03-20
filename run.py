@@ -18,7 +18,9 @@ from model import LanguageModelConfig, TransformerConfig, QuantizedWeight8bit as
 from runners import InferenceRunner, ModelRunner, sample_from_model
 
 
-CKPT_PATH = "./checkpoints/"
+# CKPT_PATH = "./checkpoints/"
+CKPT_PATH = "/pscratch/sd/m/mingfong/grok-1/checkpoints/"            # perlmutter checkpoint in PSCRATCH
+
 
 
 def main():
@@ -57,7 +59,8 @@ def main():
         name="local",
         load=CKPT_PATH,
         tokenizer_path="./tokenizer.model",
-        local_mesh_config=(1, 8),
+        # local_mesh_config=(1, 8),
+        local_mesh_config=(1, 4),
         between_hosts_config=(1, 1),
     )
     inference_runner.initialize()
@@ -68,5 +71,5 @@ def main():
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     main()
